@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using E_SourcingProducts.Data;
 using E_SourcingProducts.Data.Interfaces;
+using E_SourcingProducts.Repositories;
+using E_SourcingProducts.Repositories.Interfaces;
 using E_SourcingProducts.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +37,7 @@ namespace E_SourcingProducts
             services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
             services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
             services.AddTransient<IProductContext, ProductContext>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
         }
 
