@@ -71,7 +71,7 @@ namespace E_SourcingProducts.Controllers
             return Ok(await _productRepository.Update(product));
         }
 
-        [HttpGet("{id:length(24)}", Name = "DeleteProduct")]
+        [HttpDelete("{id:length(24)}", Name = "DeleteProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> DeleteProductById(string id)
         {
