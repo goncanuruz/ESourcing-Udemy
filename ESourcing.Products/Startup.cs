@@ -34,10 +34,26 @@ namespace E_SourcingProducts
         {
 
             services.AddControllers();
+            #region Configuration Dependencies
             services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
             services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
+            #endregion
+
+            #region Project Dependencies
             services.AddTransient<IProductContext, ProductContext>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            #endregion
+            #region Swagger Dependices
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "ESourcing.Products",
+                    Version = "v1"
+                });
+            });
+            #endregion
+
 
         }
 
@@ -47,6 +63,8 @@ namespace E_SourcingProducts
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c=>c.SwaggerEndpoint("/swagger/v1/swagger.json","ESourcing.Products v1"));
             }
 
             app.UseHttpsRedirection();
