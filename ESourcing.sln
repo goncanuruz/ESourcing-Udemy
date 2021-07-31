@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{24BD01FE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sourcing", "Sourcing", "{1954BAB7-5FB0-4A89-B13F-E248C3078A11}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,18 @@ Global
 		{A59F8B54-AD94-4323-889D-11E679EFF1DF}.Release|x64.Build.0 = Release|Any CPU
 		{A59F8B54-AD94-4323-889D-11E679EFF1DF}.Release|x86.ActiveCfg = Release|Any CPU
 		{A59F8B54-AD94-4323-889D-11E679EFF1DF}.Release|x86.Build.0 = Release|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Debug|x64.Build.0 = Debug|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Debug|x86.Build.0 = Debug|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Release|x64.ActiveCfg = Release|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Release|x64.Build.0 = Release|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Release|x86.ActiveCfg = Release|Any CPU
+		{B638C10D-DF20-4549-BAAC-F2D7D2634DFF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
