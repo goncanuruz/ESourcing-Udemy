@@ -13,7 +13,7 @@ services:
     container_name: esourcingproduct
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
       - "ProductDatabaseSettings:ConnectionString=mongodb://sourcingdb:27017"
     depends_on:
         - sourcingdb
