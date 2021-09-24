@@ -30,15 +30,22 @@ namespace Esourcing.Sourcing
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
-
             services.Configure<SourcingDatabaseSettings>(Configuration.GetSection(nameof(SourcingDatabaseSettings)));
 
+            #region Project Dependencies
             services.AddSingleton<ISourcingDatabaseSettings>(x=>x.GetRequiredService<IOptions<SourcingDatabaseSettings>>().Value);
-
             services.AddTransient<ISourcingContext,SourcingContext>();
             services.AddTransient<IAuctionRepository, AuctionRepository>();
+            services.AddTransient<IBidRepository, BidRepository>();
+            #endregion
+
+            #region Swagger Dependencies
+            services.AddSwaggerGen(s=> 
+            {
+                s.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ESourcing.Sourcing", Version = "v1" });
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +63,11 @@ namespace Esourcing.Sourcing
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c=> 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","Sourcing API V1");
             });
         }
     }
