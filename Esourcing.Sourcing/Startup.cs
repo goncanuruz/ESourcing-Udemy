@@ -3,6 +3,8 @@ using Esourcing.Sourcing.Data.Interfaces;
 using Esourcing.Sourcing.Repositories;
 using Esourcing.Sourcing.Repositories.Interfaces;
 using Esourcing.Sourcing.Settings;
+using EventBusRabbitMQ;
+using EventBusRabbitMQ.Producer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +41,7 @@ namespace Esourcing.Sourcing
             services.AddTransient<ISourcingContext,SourcingContext>();
             services.AddTransient<IAuctionRepository, AuctionRepository>();
             services.AddTransient<IBidRepository, BidRepository>();
+            services.AddAutoMapper(typeof(Startup));
             #endregion
 
             #region Swagger Dependencies
@@ -46,6 +50,34 @@ namespace Esourcing.Sourcing
                 s.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ESourcing.Sourcing", Version = "v1" });
             });
             #endregion
+
+            #region EventBus
+            services.AddSingleton<IRabbitMQPersistentConnection>(sp => {
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+                var factory = new ConnectionFactory() { 
+                    HostName=Configuration["EventBus:HostName"],
+                };
+                if (!string.IsNullOrWhiteSpace(Configuration["EventBus:UserName"]))
+                {
+                    factory.UserName = Configuration["EventBus:UserName"];
+                }
+                if (!string.IsNullOrWhiteSpace(Configuration["EventBus:Password"]))
+                {
+                    factory.UserName = Configuration["EventBus:Password"];
+                }
+                var retryCount = 5;
+                if (!string.IsNullOrWhiteSpace(Configuration["EventBus:RetryCount"]))
+                {
+                    retryCount = int.Parse(Configuration["EventBus:RetryCount"]);
+                }
+                return new DefaultRabbitMQPersistentConnection(factory,retryCount,logger) ;
+            });
+
+
+
+            services.AddSingleton<EventBusRabbitMQProducer>();
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
