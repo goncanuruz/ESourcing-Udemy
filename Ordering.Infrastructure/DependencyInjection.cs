@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Domain.Repositories;
+using Ordering.Domain.Repositories.Base;
 using Ordering.Infrastructure.Data;
+using Ordering.Infrastructure.Repositories;
+using Ordering.Infrastructure.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +22,8 @@ namespace Ordering.Infrastructure
                                                ServiceLifetime.Singleton,   
                                                ServiceLifetime.Singleton);
             //Todo: Add Repositories
-
+            services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
+            services.AddTransient<IOrderRepository,OrderRepository>();
             return services;
         }
     }

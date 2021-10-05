@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ordering.Application;
 using Ordering.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,15 @@ namespace ESourcing.Order
             #region Add Infrastructure
 
             services.AddInfrastructure(Configuration);
-
+            #endregion
+            #region Add Application
+            services.AddApplication();
+            #endregion
+            #region Swagger
+            services.AddSwaggerGen(c=> 
+            {
+                c.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo {Title="Order Api",Version="v1" });
+            });
             #endregion
 
         }
@@ -49,6 +58,11 @@ namespace ESourcing.Order
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c=> 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","Order API V1");
             });
         }
     }
