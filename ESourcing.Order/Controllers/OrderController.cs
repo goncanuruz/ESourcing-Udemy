@@ -29,7 +29,7 @@ namespace ESourcing.Order.Controllers
         [ProducesResponseType( (int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrdersBySellerUserName(string userName)
         {
-            var query = new GetOrdersBySellerUserNameQuery(userName);
+            var query = new GetOrdersBySellerUsernameQuery(userName);
             var orders = await _mediator.Send(query);
             if (orders.Count() == decimal.Zero)
                 return NotFound();

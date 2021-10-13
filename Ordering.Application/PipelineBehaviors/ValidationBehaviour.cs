@@ -1,13 +1,13 @@
-﻿using FluentValidation;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
+using MediatR;
 
-namespace Ordering.Application.PipelineBehaviors
+namespace Ordering.Application.PipelineBehaviours
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
@@ -24,12 +24,13 @@ namespace Ordering.Application.PipelineBehaviors
             var failures = _validators.Select(x => x.Validate(context))
                                       .SelectMany(x => x.Errors)
                                       .Where(x => x != null)
-                                      .ToList() ;
+                                      .ToList();
 
             if (failures.Any())
             {
                 throw new ValidationException(failures);
             }
+
             return next();
         }
     }

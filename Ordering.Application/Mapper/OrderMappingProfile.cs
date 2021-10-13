@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Mapper
 {
-    public class OrderMappingProfile:Profile
+    public class OrderMappingProfile : Profile
     {
         public OrderMappingProfile()
         {
-            CreateMap<OrderCreateCommand,Order>().ReverseMap();
+            CreateMap<Order, OrderCreateCommand>().ReverseMap();
             CreateMap<Order, OrderResponse>().ReverseMap();
         }
     }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using MediatR;
 using Ordering.Application.Commands.OrderCreate;
 using Ordering.Application.Responses;
@@ -18,7 +19,9 @@ namespace Ordering.Application.Handlers
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public OrderCreateHandler(IOrderRepository orderRepository, IMapper mapper)
+        public OrderCreateHandler(
+            IOrderRepository orderRepository,
+            IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
@@ -27,12 +30,13 @@ namespace Ordering.Application.Handlers
         public async Task<OrderResponse> Handle(OrderCreateCommand request, CancellationToken cancellationToken)
         {
             var orderEntity = _mapper.Map<Order>(request);
-            if (orderEntity==null)
-            {
+            if (orderEntity == null)
                 throw new ApplicationException("Entity could not be mapped!");
-            }
+
             var order = await _orderRepository.AddAsync(orderEntity);
+
             var orderResponse = _mapper.Map<OrderResponse>(order);
+
             return orderResponse;
         }
     }

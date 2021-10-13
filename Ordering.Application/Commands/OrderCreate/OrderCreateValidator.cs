@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Commands.OrderCreate
 {
-    public class OrderCreateValidator:AbstractValidator<OrderCreateCommand>
+    public class OrderCreateValidator : AbstractValidator<OrderCreateCommand>
     {
         public OrderCreateValidator()
         {
-            RuleFor(x => x.SellerUserName).EmailAddress().NotEmpty();
-            RuleFor(x => x.ProductId).NotEmpty();
+            RuleFor(v => v.SellerUserName)
+                .EmailAddress()
+                .NotEmpty();
+
+            RuleFor(v => v.ProductId)
+                .NotEmpty();
         }
     }
 }

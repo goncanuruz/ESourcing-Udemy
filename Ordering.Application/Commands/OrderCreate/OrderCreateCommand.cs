@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿
+using MediatR;
 using Ordering.Application.Responses;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Commands.OrderCreate
 {
-    public class OrderCreateCommand:IRequest<OrderResponse>
+    public class OrderCreateCommand : IRequest<OrderResponse>
     {
         public string AuctionId { get; set; }
         public string SellerUserName { get; set; }
