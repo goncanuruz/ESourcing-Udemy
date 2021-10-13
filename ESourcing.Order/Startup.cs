@@ -68,7 +68,7 @@ namespace ESourcing.Order
             });
             services.AddSingleton<EventBusOrderCreateConsumer>();
             #endregion
-
+            services.AddAutoMapper(typeof(Startup));
 
         }
 
