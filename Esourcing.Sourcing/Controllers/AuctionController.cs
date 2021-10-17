@@ -59,7 +59,7 @@ namespace Esourcing.Sourcing.Controllers
             return CreatedAtRoute("GetAuction", new { id = auction.Id},auction);
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut]
         [ProducesResponseType(typeof(Auction), (int)(HttpStatusCode.OK))]
         public async Task<ActionResult<Auction>> UpdateAuction([FromBody] Auction auction)
         {
@@ -73,7 +73,7 @@ namespace Esourcing.Sourcing.Controllers
         {
             return Ok(await _auctionRepository.Delete(id));
         }
-        [HttpPost("CompleteAuction")]
+        [HttpPost("CompleteAuction/{id:length(24)}")]
         [ProducesResponseType((int)(HttpStatusCode.BadRequest))]
         [ProducesResponseType((int)(HttpStatusCode.Accepted))]
         [ProducesResponseType((int)(HttpStatusCode.NotFound))]
